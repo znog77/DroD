@@ -1,3 +1,14 @@
+// Function to get the Max value in Array
+Array.max = function( array ){
+return Math.max.apply( Math, array );
+};
+
+// Function to get the Min value in Array
+Array.min = function( array ){
+return Math.min.apply( Math, array );
+};
+
+
 function plotInit(container){
   var brd = JXG.JSXGraph.initBoard(container, {boundingbox: [-2, 4, 6, -4], axis:true, grid:false, showCopyright:false});
   return brd;
@@ -23,14 +34,19 @@ function plotLine(data){
     }
   }
 
+  minX=Array.min(x)
+  maxX=Array.max(x)
+  minY=Array.min(y)
+  maxY=Array.max(y)
+
   if (curveCount>0) {
     bb = brd.getBoundingBox();
-    if ( bb[0] > x.min() ) bb[0]=x.min();
-    if ( bb[2] < x.max() ) bb[2]=x.max();
-    if ( bb[3] > y.min() ) bb[3]=y.min();
-    if ( bb[1] < y.max() ) bb[1]=y.max();
+    if ( bb[0] > minX ) bb[0]=minX;
+    if ( bb[2] < maxX ) bb[2]=maxX;
+    if ( bb[3] > minY ) bb[3]=minY;
+    if ( bb[1] < maxY ) bb[1]=maxY;
   } else {
-    bb = [x.min(),y.max(),x.max(),y.min()]
+    bb = [minX,maxY,maxX,minY];
   }
 
 	brd.setBoundingBox(bb);
