@@ -1,0 +1,8 @@
+%h1 Plot SQM
+=stylesheet_link_tag "jsxgraph"
+=javascript_include_tag "jsxgraphcore"
+#bbox.jsxbox(style="width:800px; height:400px")
+=javascript_include_tag "plot"
+%script var brd=plotInit('bbox')
+%textarea#plot_data(style="display:none")=@data
+%script plotLine(document.getElementById('plot_data').value)
