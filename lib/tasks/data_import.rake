@@ -8,7 +8,7 @@ task :import_sqm => :environment do
   sqm_s= i.survey_specs.find(1)
   time_s= i.survey_specs.find(2)
   puts "Intruments: "+i.name
-  CSV.foreach("./data_imports/output.csv") do |row|
+  CSV.foreach("./data_imports/sqm.csv") do |row|
     tt = ValueTime.new(:value_time => DateTime.parse(row[0].to_s+"-"+row[1].to_s+"-"+row[2].to_s+" "+row[3].to_s+":"+row[4].to_s+":"+row[5].to_s+" -3:00"))
     tf = ValueFloat.new(:value_flt => row[6].to_f)
     f = Field.new
