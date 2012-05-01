@@ -1,0 +1,13 @@
+%h1 Plot SQM
+=stylesheet_link_tag "jsxgraph"
+=javascript_include_tag "jsxgraphcore"
+=javascript_include_tag "plot"
+
+#bbox.jsxbox(style="width:800px; height:400px")
+%textarea#plot_data(style="display:none")=@data
+:javascript
+  var brd = plotInit('bbox')
+  var g1 = plotLine(document.getElementById('plot_data').value)
+  //var g1 = plotXY(document.getElementById('plot_data').value)
+  var xax = xAxis(brd);
+  var yax = yAxis(brd);
