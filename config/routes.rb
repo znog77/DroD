@@ -1,5 +1,10 @@
 DroD::Application.routes.draw do
-  get "plot/sqm"
+  root :to => "plots#index"
+  resources :plots do
+    collection do
+      post :sqm
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
