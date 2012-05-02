@@ -36,6 +36,7 @@ function plotLine(data){
 	var color = ['blue','red','magenta', 'green', 'black','yellow'];
 	var i, x=[], y=[];
 	var d = JSON.parse(data);
+  console.log(d)
   var curveCount=0;
   this.container = brd.objects;
   this.minX;
@@ -56,10 +57,10 @@ function plotLine(data){
     }
   }
 
-  minX=Array.min(x)
-  maxX=Array.max(x)
-  minY=Array.min(y)
-  maxY=Array.max(y)
+  minX=Array.min(x);
+  maxX=Array.max(x);
+  minY=Array.min(y);
+  maxY=Array.max(y);
 
   if (curveCount>0) {
     this.boundingBox = brd.getBoundingBox();
@@ -70,7 +71,6 @@ function plotLine(data){
   } else {
     this.boundingBox = [minX,maxY,maxX,minY];
   }
-
 	brd.setBoundingBox(this.boundingBox);
 	this.c = brd.create('curve',[x,y],{strokeColor:color[curveCount%color.length]});
 	brd.update();
