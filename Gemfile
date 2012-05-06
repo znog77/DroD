@@ -7,8 +7,10 @@ gem 'rails', '3.2.3'
 
 gem 'pg'
 gem 'haml-rails'
+gem 'pry-nav'
+gem 'pry-doc'
 gem 'pry-rails'
-
+gem 'json'
 group :development do
   gem "rails-erd"
 end
