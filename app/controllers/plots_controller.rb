@@ -2,13 +2,21 @@ class PlotsController < ApplicationController
   def index
   end
   def sqm
-    from, to = params[:sqm][:from].to_s, params[:sqm][:to].to_s
-    # habria que ordenar esto de una manera mas logica, como una busqueda binaria(del medio hacia los costados o tener un contador en el modelo para saber cual es el mas problable, y ordenar esto mediante la base asi se ordenaria por la probabilidad mas cercana)
-    ['year','month','week','day','hour','minute'].each do |value|
-      sample = Instrument.find_by_sql("SELECT date_trunc('" + value + "', t) as date,avg(v) as value FROM (SELECT max(value_flt) as v,max(value_time) as t FROM surveys INNER JOIN fields ON surveys.field_id = fields.id WHERE fields.instrument_id = 2 GROUP BY field_id) AS xy WHERE DATE(t)>'2011-02-08' AND DATE(t)<'" + to + "' GROUP BY date_trunc('" + value + "',t) ORDER BY date_trunc('" + value +"',t);")
-      #if you use alias in the resultant data, you can use element.alias to invoke the result value.(ej sample.first.date and sample.first.value ) dont care if the attribute its in the model.
-      @data = sample.map{|x| {:x=>Time.parse(DateTime.parse(x.date).to_s).to_i, :y=>x.value.to_f }}.to_json
-      return unless sample.size < 50
+    from, to, id = Date.parse(params[:sqm][:from].to_s,"%Y-%m-%d"), Date.parse(params[:sqm][:to].to_s,"%Y-%m-%d"),params[:sqm][:Instrument]
+    if from <= to
+      if (@instrument = Instrument.find_by_id(id))
+        scope = @instrument.timeWindow(from,to) # => de aca sacamos la ventana de tiempo en la q deberiamos tomar los datos.
+        binding.pry
+        a1 = @instrument.fields.includes(:surveys).where(["surveys.value_time BETWEEN ? AND  ?",from,to])
+        a2 = @instrument.fields.includes(:surveys).where(["field_id IN (?) AND surveys.type != ?",a1.map(&:id),"ValueTime"])
+        result = (a1 + a2).group_by(&:id).values.map{|f1,f2| {f1.surveys.map{|ff| ff.value.strftime(scope)}.first => f2.surveys.map{|ff| ff.value}}}
+        data = result.inject{|memo, el| memo.merge( el ){|k, old_v, new_v| old_v + new_v}}
+        binding.pry
+        @data=data.keys.map{ |k| {:x => k, :y => data[k].reduce(:+)/data[k].size} }.to_json # => hacemos el promedio por cada key
+        render :text => "range empty" unless @data
+      end
+    else
+      render :text => "worng from and to given"
     end
   end
 end
