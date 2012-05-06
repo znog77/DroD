@@ -23,5 +23,6 @@
     %p=s.text_field :from, :class => "from"
     %p=s.label 'to'
     %p=s.text_field :to, :class => "to"
+    %p=s.select(:Instrument, options_from_collection_for_select(Instrument.all, "id", "name"))
     %p=s.submit
 
