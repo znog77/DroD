@@ -35,8 +35,8 @@ function yAxis(brd){
 function plotLine(data){
 	var color = ['blue','red','magenta', 'green', 'black','yellow'];
 	var i, x=[], y=[];
-	var d = JSON.parse(data);
-  console.log(d)
+	var d = data;
+  //console.log(d)
   var curveCount=0;
   this.container = brd.objects;
   this.minX;
