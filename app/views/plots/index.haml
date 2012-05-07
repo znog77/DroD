@@ -1,13 +1,5 @@
 .row
-  .span6
+  .span12.offset3
     .hero-unit
       %h1 Dynamic Rendering of Data
       %p This is a simple note to know what is this!
-  .span11
-    =form_for 'sqm', :html => {:class => "well form-inline"}, :url => sqm_plots_path do |s|
-      From
-      =s.text_field :from, :class => 'from'
-      to
-      =s.text_field :to, :class => 'to'
-      =s.select(:Instrument, options_from_collection_for_select(Instrument.all, "id", "name"))
-      =s.submit

@@ -26,12 +26,17 @@
       .navbar-inner
         .container-fluid
           %a.brand(href="#") DroD: Dynamic Rendering of Data
-
+          =form_for 'sqm', :html => {:class => "navbar-form pull-right"}, :url => sqm_plots_path do |s|
+            From:
+            =s.text_field :from, :class => 'from'
+            To:
+            =s.text_field :to, :class => 'to'
+            Instrument:
+            =s.select(:Instrument, options_from_collection_for_select(Instrument.all, "id", "name"))
+            =s.submit "render!"
     .container-fluid
       = yield
 
-    %footer
-      %p &copy; LGPL (ITeDA Mendoza)
     /
       Javascripts
       \==================================================
