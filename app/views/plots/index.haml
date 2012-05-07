@@ -1,28 +1,13 @@
-:javascript
-  $(function() {
-    var dates = $( ".from, .to" ).datepicker({
-      defaultDate: "-3m",
-      changeMonth: true,
-      numberOfMonths: 3,
-      dateFormat: "yy-mm-dd",
-      onSelect: function( selectedDate ) {
-        var option = this.id == "from" ? "minDate" : "maxDate",
-          instance = $( this ).data( "datepicker" ),
-          date = $.datepicker.parseDate(
-            instance.settings.dateFormat ||
-            $.datepicker._defaults.dateFormat,
-            selectedDate, instance.settings );
-            }
-    });
-  });
-
-
-.demo
-  = form_for 'sqm', :url => sqm_plots_path do |s|
-    %p=s.label 'From'
-    %p=s.text_field :from, :class => "from"
-    %p=s.label 'to'
-    %p=s.text_field :to, :class => "to"
-    %p=s.select(:Instrument, options_from_collection_for_select(Instrument.all, "id", "name"))
-    %p=s.submit
-
+.row
+  .span6
+    .hero-unit
+      %h1 Dynamic Rendering of Data
+      %p This is a simple note to know what is this!
+  .span11
+    =form_for 'sqm', :html => {:class => "well form-inline"}, :url => sqm_plots_path do |s|
+      From
+      =s.text_field :from, :class => 'from'
+      to
+      =s.text_field :to, :class => 'to'
+      =s.select(:Instrument, options_from_collection_for_select(Instrument.all, "id", "name"))
+      =s.submit

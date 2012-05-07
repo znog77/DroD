@@ -11,5 +11,5 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery_ujs
+//jquery-ui-1.8.19.custom.min.js
 //= require_tree .

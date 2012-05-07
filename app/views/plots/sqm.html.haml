@@ -1,8 +1,4 @@
-%h1 Plot SQM
-#bbox.jsxbox(style="width:800px; height:400px")
+.row
+  #bbox.offset3.jsxbox(style="width:800px; height:400px")
 :javascript
   var data = #{@data};
-  var brd = plotInit('bbox');
-  var g1 = plotLine(data);
-  var xax = xAxis(brd);
-  var yax = yAxis(brd);

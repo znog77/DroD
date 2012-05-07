@@ -2,7 +2,7 @@ class PlotsController < ApplicationController
   def index
   end
   def sqm
-    from, to, id = Date.parse(params[:sqm][:from].to_s,"%Y-%m-%d"), Date.parse(params[:sqm][:to].to_s,"%Y-%m-%d"),params[:sqm][:Instrument]
+    from, to, id = Date.parse(params[:sqm][:from].to_s,"%d-%m-%Y"), Date.parse(params[:sqm][:to].to_s,"%d-%m-%Y"),params[:sqm][:Instrument]
     if from <= to
       if (@instrument = Instrument.find_by_id(id))
         scope = @instrument.timeWindow(from,to) # => de aca sacamos la ventana de tiempo en la q deberiamos tomar los datos.
