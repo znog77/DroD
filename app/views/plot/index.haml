@@ -4,12 +4,14 @@
       %h1 Dynamic Rendering of Data
       %p This is a simple note to know what is this!
 
-  .span12.offset3
+  .span10.offset4
     =form_for 'sqm', :html => {:class => "well"}, :url => sqm_plot_index_path do |s|
       From:
-      =s.text_field :from, :class => 'from'
+      =s.text_field :from, :class => 'from input-small'
       To:
-      =s.text_field :to, :class => 'to'
+      =s.text_field :to, :class => 'to input-small'
       Instrument:
-      =s.select(:Instrument, options_from_collection_for_select(Instrument.all, "id", "name"))
+      =s.select(:Instrument, options_from_collection_for_select(Instrument.all, "id", "name"),{}, {:class => "span2"})
+      Lunar?
+      =check_box('sqm','lunar')
       =s.submit "render!"

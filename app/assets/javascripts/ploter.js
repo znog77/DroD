@@ -1,5 +1,5 @@
 $(function(){
-  if (data){
+  if (typeof data !='undefined'){
     brd = plotInit('bbox');
     g1 = plotLine(data);
     xax = xAxis(brd);
