@@ -1,4 +1,4 @@
-class PlotsController < ApplicationController
+class PlotController < ApplicationController
   def index
   end
   def sqm

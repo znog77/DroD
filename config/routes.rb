@@ -1,6 +1,6 @@
 DroD::Application.routes.draw do
-  root :to => "plots#index"
-  resources :plots do
+  root :to => "plot#index"
+  resources :plot do
     collection do
       post :sqm
     end

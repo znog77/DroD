@@ -1,0 +1,15 @@
+.row
+  .span12.offset3
+    .hero-unit
+      %h1 Dynamic Rendering of Data
+      %p This is a simple note to know what is this!
+
+  .span12.offset3
+    =form_for 'sqm', :html => {:class => "well"}, :url => sqm_plot_index_path do |s|
+      From:
+      =s.text_field :from, :class => 'from'
+      To:
+      =s.text_field :to, :class => 'to'
+      Instrument:
+      =s.select(:Instrument, options_from_collection_for_select(Instrument.all, "id", "name"))
+      =s.submit "render!"
