@@ -13,17 +13,17 @@ class Instrument < ActiveRecord::Base
     value = (to - from).to_i.days
     case
     when value >= ARBITRARY_WINDOW.years
-      "%Y"
+      "%Y0101"
     when value >= ARBITRARY_WINDOW.months
-      "%m%Y"
+      "%Y%m"
     when value >= ARBITRARY_WINDOW.weeks
-      "%W%Y"
+      "%Y%W0"
     when value >= ARBITRARY_WINDOW.days
-      "%j%Y"
+      "%Y%m%d"
     when value >= ARBITRARY_WINDOW.hours
-      "%H%j%Y"
+      "%Y%m%d%H"
     when value >= ARBITRARY_WINDOW.minute
-      "%M%H%j%Y"
+      "%Y%m%d%H%M"
     end
   end
 

@@ -11,6 +11,7 @@ gem 'pry-nav'
 gem 'pry-doc'
 gem 'pry-rails'
 gem 'json'
+gem 'astro_moon'
 group :development do
   gem "rails-erd"
 end

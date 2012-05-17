@@ -80,7 +80,7 @@ function plotLine(data){
 function plotXY(data){
 	var color = ['blue','red','magenta', 'green', 'black','yellow'];
 	var i, x=[], y=[], p=[];
-	var d = JSON.parse(data);
+  var d = data;
   var curveCount=0;
   this.container = brd.objects;
   this.minX;

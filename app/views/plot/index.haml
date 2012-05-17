@@ -12,6 +12,10 @@
       =s.text_field :to, :class => 'to input-small'
       Instrument:
       =s.select(:Instrument, options_from_collection_for_select(Instrument.all, "id", "name"),{}, {:class => "span2"})
-      Lunar?
+      Exclude full moon +/- 7 days?
       =check_box('sqm','lunar')
+      Exclude samples earliers than 22:00 and later than 5:00?
+      =check_box('sqm','hours')
+      Don't auto-aggregate
+      =check_box('sqm','noautoscope')
       =s.submit "render!"
