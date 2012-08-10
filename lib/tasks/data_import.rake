@@ -42,10 +42,10 @@ task :import_sqmlr_leo => :environment do
   puts "Intruments: "+i.name
   CSV.foreach("./data_imports/sqmlr_leo.csv") do |row|
     if row[0].to_i<1330073100 # There is a problem here with the TS7260 clock
-      binding.pry
+      #binding.pry
       time_correction=6.hours
     else
-      time_correction=3.hours
+      time_correction=0.hours
     end
     tt = ValueTime.new(:value_time => Time.at(row[0].to_i)-time_correction)
     tf = ValueFloat.new(:value_flt => row[1].to_f)
