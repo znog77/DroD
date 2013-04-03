@@ -41,6 +41,7 @@ task :import_sqmlr_leo => :environment do
   i = Instrument.find(id)
   puts "Intruments: "+i.name
   skipped=0
+  count=0
   CSV.foreach("./data_imports/sqmlr_leo.csv") do |row|
     if row[0].to_i<1330073100 # There is a problem here with the TS7260 clock
       #binding.pry
@@ -50,6 +51,8 @@ task :import_sqmlr_leo => :environment do
     end
     tt = ValueTime.new(:value_time => Time.at(row[0].to_i)-time_correction)
     tf = ValueFloat.new(:value_flt => row[1].to_f)
+    puts count
+    count=count+1
     if Survey.where(:value_time=>tt.value_time).length==0
       f = Field.new
       f.surveys << tt
@@ -64,19 +67,25 @@ task :import_sqmlr_leo => :environment do
   puts "Skipped "+skipped.to_s+" records"
 end
 
-desc "Get the SQM data from a SQM-L file"
+desc "Get the SQM data from a SQM-LR file"
 task :import_sqmlr_sac => :environment do
   id = 4
   i = Instrument.find(id)
+  skipped=0
   puts "Intruments: "+i.name
   CSV.foreach("./data_imports/sqmlr_sac.csv") do |row|
     tt = ValueTime.new(:value_time => Time.at(row[0].to_i)-3.hours)
-    tf = ValueFloat.new(:value_flt => row[1].to_f)
-    f = Field.new
-    f.surveys << tt
-    f.surveys << tf
-    f.save
-    i.fields << f
+    tf = ValueFloat.new(:value_flt => row[2].to_f)
+    if Survey.where(:value_time=>tt.value_time).length==0
+      f = Field.new
+      f.surveys << tt
+      f.surveys << tf
+      f.save
+      i.fields << f
+    else
+      puts "data already stored: skipping"
+      skipped+=1
+    end
   end
   i.save
 end
